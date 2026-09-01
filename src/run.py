@@ -23,7 +23,7 @@ with sync_playwright()as p:
   name,parameters=f'{name}'[4:].replace(' ','').split('(')[:2]
   parameters=['results']+parameters.split(')')[0].split(',')
   results=iter(e['v']for q in results['result']['output']for w in q['items']for e in w.get('items',())[:-1])
-  results=[eval((print(i),print(f'({i.split('equal ')[1]},*{n})','\n'+'*'*99),f'({i.split('equal ')[1]},*{n})')[2])for n,i in zip(results,results)]
+  results=[eval(f'({i.split('equal ')[1]},*{n})')for n,i in zip(results,results)]
   pyi='\n'.join(i+f':Literal[{','.join((f'{(a:=z[n])}',f'"""{a}"""')[str==type(a)]for z in results)}]'for n,i in enumerate(parameters))
   newFile(f'typings/{name}.pyi','from typing import Literal\n'+pyi)
   file or newFile(f'solutions/{url.split('.')[1]}/{url.split('/')[-1]}/{rank}/{name}.py',f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
