@@ -5,7 +5,7 @@ def on_response(i):i.url=='https://runner.codewars.com/run'and results.update(i.
 folder=Path(__file__).parents[1];files=(folder/'solutions').rglob('*.py')
 with sync_playwright()as p:
  try:page=p.chromium.launch().new_page()
- except:__import__('subprocess').run((folder/'venv'/('bin','Scripts')[win:=__import__('sys').platform=='win32']/('python'+'.exe'*win),'-m playwright install chromium'));page=p.chromium.launch().new_page()
+ except:__import__('subprocess').run(f'{folder/'venv'/('bin','Scripts')[win:=__import__('sys').platform=='win32']/('python'+'.exe'*win)} -m playwright install chromium');page=p.chromium.launch().new_page()
  while 1:
   url=next(files,0)or input('Enter url Codewars kata: ')
   if file:=type(url)!=str:
