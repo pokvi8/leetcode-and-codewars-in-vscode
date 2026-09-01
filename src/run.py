@@ -7,7 +7,7 @@ with sync_playwright()as p:
  try:page=p.chromium.launch().new_page()
  except:__import__('subprocess').run(f'{folder/'venv'/('bin','Scripts')[win:=__import__('sys').platform=='win32']/('python'+'.exe'*win)} -m playwright install chromium');page=p.chromium.launch().new_page()
  while 1:
-  url=next(files,0)or input('Enter url Codewars kata: ')
+  url=next(files,0)or input('Codewars kata url: ')
   if file:=type(url)!=str:
    if(folder/f'typings/{url.name}i').exists()or'\n#'not in'\n'+url.read_text():continue
    for i in open(url):
