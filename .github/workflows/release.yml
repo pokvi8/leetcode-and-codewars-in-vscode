@@ -1,0 +1,12 @@
+on:
+ push:
+  branches: [main]
+jobs:
+ u:
+  runs-on: ubuntu-latest
+  env:
+   GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  steps:
+  - uses: actions/checkout@v4
+  - run: gh release create latest --title "Latest" || true
+  - run: gh release upload latest start.py --clobber

@@ -1,5 +1,5 @@
 import warnings,pathlib,sys;path=pathlib.Path(sys.argv[-1]);name=path.name;folder=pathlib.Path.cwd()
-if'solutions'in path._tail:
+if'solutions'in path.relative_to(folder)._tail:
  codeArr=[*open(folder/'typings'/(name+'i'))][1:]
  parametrs=[i.split(':Literal')[0]for i in codeArr if':Literal'in i]
  code=''.join(codeArr)
