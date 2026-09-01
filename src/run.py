@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
 from pathlib import Path
-def newFile(name,code):l=Path(name);l.parent.mkdir(511,1,1);l.write_text(code)
+def newFile(path,code):l=Path(path);l.parent.mkdir(511,1,1);l.write_text(code)
 def on_response(i):i.url=='https://runner.codewars.com/run'and results.update(i.json())
 folder=Path(__file__).parents[1];files=(folder/'solutions').rglob('*.py')
 with sync_playwright()as p:
