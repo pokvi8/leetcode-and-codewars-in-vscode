@@ -26,4 +26,5 @@ with sync_playwright()as p:
   results=[eval(f'({i.split('equal ')[1]},*{n})')for n,i in zip(results,results)]
   pyi='\n'.join(i+f':Literal[{','.join((f'{(a:=z[n])}',f'"""{a}"""')[str==type(a)]for z in results)}]'for n,i in enumerate(parameters))
   newFile(f'typings/{name}.pyi','from typing import Literal\n'+pyi)
-  file or newFile(f'solutions/{url.split('.')[1]}/python/{rank}/{name}.py',f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
+  file or newFile(path:=f'solutions/{url.split('.')[1]}/python/{rank}/{name}.py',f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
+  file or print(path)
