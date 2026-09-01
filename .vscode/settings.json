@@ -1,0 +1,15 @@
+{
+"code-runner.showRunIconInEditorTitleMenu":true,
+"code-runner.clearPreviousOutput":true,
+"code-runner.ignoreSelection":true,
+"code-runner.executorMap":{
+"python":"python $workspaceRoot/src/solution.py $fullFileName"
+},
+"files.exclude":{
+".vscode/":true,
+"src/":true,
+"typings/":true,
+"venv/":true,
+".gitignore":true,
+}
+}
