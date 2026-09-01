@@ -1,5 +1,7 @@
 # [Codewars Python](https://www.codewars.com/kata/search/python?beta=false) in VS Code
 
+[![Download](https://img.shields.io/badge/Download-gray?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/pokvi8/leetcode-and-codewars-in-vscode/main/start.py)
+
 This repository allows you to solve Codewars problems in VS Code.
 
 ## Repository Structure
