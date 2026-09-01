@@ -8,13 +8,13 @@ if'solutions'in path.relative_to(folder)._tail:
   warnings.simplefilter('ignore',SyntaxWarning)
   db={n:eval(i)for n,i in zip(parametrs,values)}
  countResult=0
- for n,i in enumerate(db.pop('results'),1):
+ for n,results in enumerate(db.pop('results'),1):
   fileCode=[c for c in open(path)if' import results, 'not in c]
   file='def results():\n '+' '.join(c.replace('result','return').replace(' ='['result'in c],' ',1)for c in fileCode)
   exec(file,l:={k:v[~-n]for k,v in db.items()})
   result=l.pop('results')();del l['__builtins__']
-  q=result==i;countResult+=q
-  print(f'{'❌✅'[q]}№{n} {f'{l}'[2:-1].replace("':",' =').replace(", '",' ')}, {result = }'+f', results = {i}'*(q<1))
+  q=result==results;countResult+=q
+  print(f'{'❌✅'[q]}№{n} {f'{l}'[2:-1].replace("':",' =').replace(", '",' ')}, {result = }'+f', {results = }'*(q<1))
  print((f'{n} = {countResult} ✅ + {n-countResult} ❌',f'✅{n}')[countResult==n])
 else:
  name=='solution.py'or __import__('subprocess').run((folder/'venv'/('bin','Scripts')[win:=sys.platform=='win32']/('python'+'.exe'*win),path))
