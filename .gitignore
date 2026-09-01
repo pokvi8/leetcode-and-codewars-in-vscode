@@ -1,4 +1,5 @@
 .vscode/
 typings/
+venv/
 src/
 readme.md
