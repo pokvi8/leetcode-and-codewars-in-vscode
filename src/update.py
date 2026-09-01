@@ -6,7 +6,7 @@ folder=Path(__file__).parents[1]
 branch='main';repo='/pokvi8/leetcode-and-codewars-in-vscode/'
 url=f'https://api.github.com/repos{repo}git/trees/{branch}?recursive='
 data=dbJson(i=urlopen(url))['tree']
-version=dbJson('version')
+version=dbJson(folder/'src/version')
 url='https://raw.githubusercontent.com'+repo+branch+'/'
 for path,sha in((i['path'],i['sha'])for i in data if'blob'==i['type']and'.github'not in i['path']):
  if(update:=version.get(path,''))!=sha:
