@@ -1,17 +1,19 @@
 from playwright.sync_api import sync_playwright
+from subprocess import Popen
 from pathlib import Path
 def newFile(path,code):l=Path(path);l.parent.mkdir(511,1,1);l.write_text(code)
 def on_response(i):i.url=='https://runner.codewars.com/run'and results.update(i.json())
-folder=Path(__file__).parents[1];files=(folder/'solutions').rglob('*.py')
+folder=Path(__file__).parents[1];files=(folder/'solutions').rglob('*.py');file=1
 with sync_playwright()as p:
  try:page=p.chromium.launch().new_page()
  except:__import__('subprocess').run(f'{folder/'venv'/('bin','Scripts')[win:=__import__('sys').platform=='win32']/('python'+'.exe'*win)} -m playwright install chromium');page=p.chromium.launch().new_page()
  while 1:
+  file or Popen(('python',folder/'src/update.py'))
   url=next(files,0)or input('Codewars kata url: ')
   if file:=type(url)!=str:
-   if(folder/f'typings/{url.name}i').exists()or'\n#'not in'\n'+url.read_text():continue
+   if(folder/f'typings/{url.name}i').exists()or'\n#/'not in'\n'+url.read_text().replace(' ','').replace('https://www.codewars.com/kata',''):continue
    for i in open(url):
-    if'#'in i and'/'in i:url='https://www.codewars.com/kata/'+i.split('/')[-1].strip();break
+    if'#'in i and'/'in i:url='https://www.codewars.com/kata/'+i.split('/')[-1].strip();print(url);break
   url=url.removesuffix('/').removesuffix('/python').removesuffix('/train')
   page.goto(url+'/train/python')
   name=page.wait_for_function("n=document.querySelector('.CodeMirror')?.CodeMirror;i=n?.getValue();i&&n.setValue(i.split('(')[0]+'(*_):print(_)')||i",timeout=9e3)
@@ -27,4 +29,4 @@ with sync_playwright()as p:
   pyi='\n'.join(i+f':Literal[{','.join((f'{(a:=z[n])}',f'"""{a}"""')[str==type(a)]for z in results)}]'for n,i in enumerate(parameters))
   newFile(f'typings/{name}.pyi','from typing import Literal\n'+pyi)
   file or newFile(path:=f'solutions/{url.split('.')[1]}/python/{rank}/{name}.py',f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
-  file or print(path)
+  file or print('✅solution file: ',path)
