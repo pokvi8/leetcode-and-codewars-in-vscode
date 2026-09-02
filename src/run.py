@@ -29,4 +29,4 @@ with sync_playwright()as p:
   pyi='\n'.join(i+f':Literal[{','.join((f'{(a:=z[n])}',f'"""{a}"""')[str==type(a)]for z in results)}]'for n,i in enumerate(parameters))
   newFile(f'typings/{name}.pyi','from typing import Literal\n'+pyi)
   file or newFile(path:=f'solutions/{url.split('.')[1]}/python/{rank}/{name}.py',f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
-  file or print('✅solution file: ',path)
+  file or print('✅ solution file: ',path)
