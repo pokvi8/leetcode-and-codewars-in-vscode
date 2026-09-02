@@ -1,5 +1,5 @@
 from playwright.sync_api import sync_playwright
-from subprocess import Popen
+from subprocess import run
 from pathlib import Path
 def newFile(path,code):l=Path(path);l.parent.mkdir(511,1,1);l.write_text(code)
 def on_response(i):i.url=='https://runner.codewars.com/run'and results.update(i.json())
@@ -8,7 +8,7 @@ with sync_playwright()as p:
  try:page=p.chromium.launch().new_page()
  except:__import__('subprocess').run(f'{folder/'venv'/('bin','Scripts')[win:=__import__('sys').platform=='win32']/('python'+'.exe'*win)} -m playwright install chromium');page=p.chromium.launch().new_page()
  while 1:
-  file or Popen(('python',folder/'src/update.py'))
+  file or(update:=run(('python',folder/'src/update.py')).returncode,update or run(('python',Path(__file__))))
   url=next(files,0)or input('Codewars kata url: ')
   if file:=type(url)!=str:
    if(folder/f'typings/{url.name}i').exists()or'\n#/'not in'\n'+url.read_text().replace(' ','').replace('https://www.codewars.com/kata',''):continue
