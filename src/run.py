@@ -17,8 +17,7 @@ with sync_playwright()as p:
   url=url.removesuffix('/').removesuffix('/python').removesuffix('/train')
   page.goto(url+'/train/python')
   name=page.wait_for_function("n=document.querySelector('.CodeMirror')?.CodeMirror;i=n?.getValue();i&&n.setValue(i.split('(')[0]+'(*_):print(_)')||i",timeout=9e3)
-  page.locator("a:has-text('Attempt')").click()
-  results={}
+  results={};page.locator("a:has-text('Attempt')").click()
   page.on('response',on_response)
   while{}==results:page.wait_for_timeout(1)
   rank=page.locator('.inner-small-hex').text_content()[0]
