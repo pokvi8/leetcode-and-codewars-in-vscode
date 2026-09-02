@@ -23,7 +23,7 @@ with sync_playwright()as p:
   while{}==results:page.wait_for_timeout(1)
   rank=page.locator('.inner-small-hex').text_content()[0]
   name,parameters=f'{name}'[4:].replace(' ','').split('(')[:2]
-  parameters=['results']+parameters.split(')')[0].split(',').replace('*','')
+  parameters=['results']+parameters.split(')')[0].replace('*','').split(',')
   results=iter(e['v']for q in results['result']['output']for w in q['items']for e in w.get('items',())[:-1])
   results=[eval(f'({i.split('equal ')[1]},*{n})')for n,i in zip(results,results)]
   pyi='\n'.join(i+f':Literal[{','.join((f'{(a:=z[n])}',f'"""{a}"""')[str==type(a)]for z in results)}]'for n,i in enumerate(parameters))
