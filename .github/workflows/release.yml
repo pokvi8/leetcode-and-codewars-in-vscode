@@ -8,5 +8,5 @@ jobs:
    GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   steps:
   - uses: actions/checkout@v4
-  - run: gh release create latest||true
+  - run: gh release create latest||0
   - run: gh release upload latest start.py --clobber
