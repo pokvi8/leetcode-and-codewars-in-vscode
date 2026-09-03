@@ -4,7 +4,6 @@ from pathlib import Path
 folder=Path.cwd();script={};venv=folder/'venv'/('bin','Scripts')[win:=__import__('sys').platform=='win32']
 extension=run('code --install-extension formulahendry.code-runner',shell=1,capture_output=1,text=1).stdout
 if"'.."in extension:print(extension)
-
 for i in'pip','python':globals()[i]=venv/(i+'.exe'*win)
 for i in'venv','update','run':script[f'src/{i}.py']=(folder/f'src/{i}.py').exists()if i!='venv'else pip.exists()and python.exists()and'playwright'in run((pip,'freeze'),capture_output=1,text=1).stdout
 for n,(k,i)in enumerate(script.items()):
