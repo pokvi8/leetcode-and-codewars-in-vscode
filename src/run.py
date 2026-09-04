@@ -6,7 +6,7 @@ def on_response(i):i.url=='https://runner.codewars.com/run'and results.update(i.
 folder=Path(__file__).parents[1];files=(folder/'solutions').rglob('*.py');file=1
 with sync_playwright()as p:
  try:page=p.chromium.launch().new_page()
- except:__import__('subprocess').run(f'{folder/'venv'/('bin','Scripts')[win:=__import__('sys').platform=='win32']/('python'+'.exe'*win)} -m playwright install chromium');page=p.chromium.launch().new_page()
+ except:run(f'{folder/'venv'/('bin','Scripts')[win:=__import__('sys').platform=='win32']/('python'+'.exe'*win)} -m playwright install chromium');page=p.chromium.launch().new_page()
  while 1:
   file or(update:=run(('python',folder/'src/update.py')).returncode,update or run((__import__('sys').executable,Path(__file__))))
   url=next(files,0)or input('Codewars kata url: ')
@@ -28,4 +28,4 @@ with sync_playwright()as p:
   pyi='\n'.join(i+f':Literal[{','.join((f'{(a:=z[n])}',f'"""{a}"""')[str==type(a)]for z in results)}]'for n,i in enumerate(parameters))
   newFile(f'typings/{name}.pyi','from typing import Literal\n'+pyi)
   file or newFile(path:=f'solutions/{url.split('.')[1]}/python/{rank}/{name}.py',f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
-  file or print('✅ solution file: ',path)
+  file or(run(('code',path),shell=1),print('✅ solution file: ',path))
