@@ -2,7 +2,7 @@ from playwright.sync_api import sync_playwright
 from subprocess import run
 from pathlib import Path
 def newFile(path,code):l=Path(path);l.parent.mkdir(511,1,1);l.write_text(code)
-def on_response(i):i.url=='https://runner.codewars.com/run'and results.update(i.json())
+def on_response(i):i.url=='https://runner.codewars.com/run'and data.update(i.json())
 folder=Path(__file__).parents[1];files=(folder/'solutions').rglob('*.py');file=1
 with sync_playwright()as p:
  try:page=p.chromium.launch().new_page()
@@ -16,16 +16,17 @@ with sync_playwright()as p:
     if'#'in i and'/'in i:url='https://www.codewars.com/kata/'+i.split('/')[-1].strip();print(url);break
   url=url.removesuffix('/').removesuffix('/python').removesuffix('/train')
   page.goto(url+'/train/python')
+  page.click('a#reset_btn');page.click('li.confirm')
   name=page.wait_for_function("n=document.querySelector('.CodeMirror')?.CodeMirror;i=n?.getValue();i&&n.setValue(i.split('(')[0]+'(*_):print(_)')||i",timeout=9e3)
-  results={};page.locator("a:has-text('Attempt')").click()
+  data={};page.click("a:has-text('Attempt')")
   page.on('response',on_response)
-  while{}==results:page.wait_for_timeout(1)
+  while{}==data:page.wait_for_timeout(1)
   rank=page.locator('.inner-small-hex').text_content()[0]
   name,parameters=f'{name}'[4:].replace(' ','').split('(')[:2]
   parameters=['results']+parameters.split(')')[0].replace('*','').split(',')
-  results=iter(e['v']for q in results['result']['output']for w in q['items']for e in w.get('items',())[:-1])
+  results=iter(e['v']for q in data['result']['output']for w in q['items']for e in w.get('items',())[:-1])
   results=[eval(f'({i.split('equal ')[1]},*{n})')for n,i in zip(results,results)]
-  pyi='\n'.join(i+f':Literal[{','.join((f'{(a:=z[n])}',f'"""{a}"""')[str==type(a)]for z in results)}]'for n,i in enumerate(parameters))
+  pyi='\n'.join(i+f':Literal[{','.join(repr(z[n])for z in results)}]'for n,i in enumerate(parameters))
   newFile(f'typings/{name}.pyi','from typing import Literal\n'+pyi)
   file or newFile(path:=f'solutions/{url.split('.')[1]}/python/{rank}/{name}.py',f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
   file or(run(('code',path),shell=1),print('✅ solution file: ',path))

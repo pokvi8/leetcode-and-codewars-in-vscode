@@ -1,13 +1,9 @@
 import warnings,pathlib,sys;path=pathlib.Path(sys.argv[-1]);name=path.name;folder=pathlib.Path.cwd()
 if'solutions'in path.relative_to(folder)._tail:
- codeArr=[*open(folder/'typings'/(name+'i'))][1:]
- parametrs=[i.split(':Literal')[0]for i in codeArr if':Literal'in i]
- code=''.join(codeArr);countResult=0
- values=[code.split(':Literal')[n:n+2][0][:n<len(parametrs)and~len(i)or None]for n,i in enumerate(parametrs[1:]+[1],1)]
- file=f'def results({','.join(parametrs[1:])}):\n '+' '.join(i.replace('results','pokvi').replace('result','return').replace('pokvi','results').replace(' ='['result'in i],' ',1)for i in open(path)if' import results, 'not in i)
- with warnings.catch_warnings():
-  warnings.simplefilter('ignore',SyntaxWarning)
-  db={n:eval(i)for n,i in zip(parametrs,values)}
+ countResult=0;pyi=[i.split(':Literal')for i in open(folder/f'typings/{name}i')][1:]
+ with warnings.catch_warnings(action='ignore',category=SyntaxWarning):
+  db={n:eval(i)for n,i in pyi}
+  file=f'def results({','.join([*db][1:])}):\n '+' '.join(i.replace('results','pokvi').replace('result','return').replace('pokvi','results').replace(' ='['result'in i],' ',1)for i in open(path)if' import results, 'not in i)
   exec(file,l:={});func=l['results']
  for n,results in enumerate(db.pop('results'),1):
   l={k:v[~-n]for k,v in db.items()}
