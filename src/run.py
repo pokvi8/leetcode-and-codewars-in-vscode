@@ -24,9 +24,11 @@ with sync_playwright()as p:
   rank=page.locator('.inner-small-hex').text_content()[0]
   name,parameters=f'{name}'[4:].replace(' ','').split('(')[:2]
   parameters=['results']+parameters.split(')')[0].replace('*','').split(',')
-  results=iter(e['v']for q in data['result']['output']for w in q['items']for e in w.get('items',())[:-1])
-  results=[eval(f'({i.split('equal ')[1]},*{n})')for n,i in zip(results,results)]
-  pyi='\n'.join(i+f':Literal[{','.join(repr(z[n])for z in results)}]'for n,i in enumerate(parameters))
+  results=[v for n in data['result']['output']for i in n['items']for v in i.get('items',())[:-1]]
+  parameter=sum((n['v'][:-1].split('\n')for n in results if'log'==n['t']),[])
+  results=(i['v'].split('equal ')[1]for i in results if'log'!=i['t'])
+  results=[eval(f'({i},*{n})')for n,i in zip(parameter,results)]
+  pyi='\n'.join(i+f':Literal[{','.join(repr(v[n])for v in results)}]'for n,i in enumerate(parameters))
   newFile(f'typings/{name}.pyi','from typing import Literal\n'+pyi)
   file or newFile(path:=f'solutions/{url.split('.')[1]}/python/{rank}/{name}.py',f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
   file or(run(('code',path),shell=1),print('✅ solution file: ',path))
