@@ -10,7 +10,7 @@ with sync_playwright()as p:
  try:page=p.chromium.launch().new_page()
  except:run(f'"{executable}" -m playwright install chromium',shell=1);page=p.chromium.launch().new_page()
  while 1:
-  file or(update:=run(('python',folder/'src/update.py'),capture_output=1,text=1),print(update.stdout),update.stderr and run((executable,update.stderr)))
+  file or(update:=run(('python',folder/'src/update.py','1'),capture_output=1,text=1),print(update.stdout),update.stderr and run((executable,update.stderr)))
   url=next(files,0)or input('Codewars kata url: ')
   if file:=type(url)!=str:
    if(folder/f'typings/{url.name}i').exists()and(folder/f'tests/{url.name}').exists()or'\n#/'not in'\n'+url.read_text().replace(' ','').replace('https://www.codewars.com/kata',''):continue

@@ -1,6 +1,7 @@
 from urllib.request import urlopen,urlretrieve
 from pathlib import Path
 from json import dump,loads
+import sys
 def dbJson(n='',i={}):Path(n:=f'{n}.json').exists()and(i:=open(n));dict==type(i)or(i:=loads(i.read()));return type('',(type(i),),{'__call__':lambda s:dump(s,open(n,'w'),ensure_ascii=0,indent=1,separators=',:')})(i)
 folder=Path(__file__).parents[1];run=''
 branch='main';repo='/pokvi8/leetcode-and-codewars-in-vscode/'
@@ -20,4 +21,4 @@ for i in[*version]:
  if i not in tree:
   file=Path(i);file.exists()and file.unlink()
   version.pop(i);version();print('deleted ',file.relative_to(folder))
-run and print(run,file=__import__('sys').stderr)
+'1'==sys.argv[-1]and run and print(run,file=sys.stderr)
