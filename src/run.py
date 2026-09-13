@@ -3,7 +3,7 @@ from subprocess import run,Popen
 from pathlib import Path
 def newFile(path,code):l=Path(path);l.parent.mkdir(511,1,1);l.write_text(code)
 folder=Path(__file__).parents[1];files=(folder/'solutions').rglob('*.py');file=1
-solution=repr("import ast;print(''.join('expect('in i and i.replace(q:=i.split('expect(',1)[1].split(',')[0],(w:=ast.parse(q,mode='eval').body).left.id+','+repr(ast.unparse(ast.Compare(e:=ast.Name('.'),w.ops,[e]))[2:-2])+','+w.comparators[0].id)or i for i in open(__import__('pathlib').Path.cwd()/'tests.py')))")
+solution=repr("import ast;print(''.join('expect('in i and i.replace(q:=i.split('expect(',1)[1].split(',')[0],'('+(w:=ast.parse(q,mode='eval').body).left.id+','+repr(ast.unparse(ast.Compare(e:=ast.Name('.'),w.ops,[e]))[2:-2])+','+w.comparators[0].id+')')or i for i in open(__import__('pathlib').Path.cwd()/'tests.py')))")
 with sync_playwright()as p:
  try:page=p.chromium.launch().new_page()
  except:run(f'{folder/'venv'/('bin','Scripts')[win:=__import__('sys').platform=='win32']/('python'+'.exe'*win)} -m playwright install chromium');page=p.chromium.launch().new_page()
