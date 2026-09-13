@@ -1,4 +1,4 @@
-import warnings,pathlib,sys;path=pathlib.Path(sys.argv[-1]);name=path.name;folder=pathlib.Path.cwd()
+import subprocess,warnings,pathlib,sys;path=pathlib.Path(sys.argv[-1]);name=path.name;folder=pathlib.Path.cwd()
 if'solutions'in path.relative_to(folder)._tail:
  countResult=0;pyi=[i.split(':Literal')for i in open(folder/f'typings/{name}i')][1:]
  with warnings.catch_warnings(action='ignore',category=SyntaxWarning):
@@ -11,5 +11,6 @@ if'solutions'in path.relative_to(folder)._tail:
   q=result==results;countResult+=q
   print('❌✅'[q]+f'№{n} {f'{l}'[2:-1].replace("':",' =').replace(", '",', ')}, {results = }'+f', {result = }'*(q<1))
  print(('❌✅'[countResult>0]+f'{n}',f'{n} = {countResult} ✅ + {n-countResult} ❌')[0<countResult<n])
+ subprocess.run(('python',folder/f'tests/{name}',f'{['results',*db]}'.replace(' ','')))
 else:
- name=='solution.py'or __import__('subprocess').run((folder/'venv'/('bin','Scripts')[win:=sys.platform=='win32']/('python'+'.exe'*win),path))
+ name=='solutions.py'or subprocess.run((folder/'venv'/('bin','Scripts')[win:=sys.platform=='win32']/('python'+'.exe'*win),path))

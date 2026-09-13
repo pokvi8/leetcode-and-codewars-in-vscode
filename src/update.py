@@ -8,10 +8,16 @@ url=f'https://api.github.com/repos{repo}git/trees/{branch}?recursive='
 data=dbJson(i=urlopen(url))['tree']
 version=dbJson(folder/'src/version')
 url='https://raw.githubusercontent.com'+repo+branch+'/'
-for path,sha in((i['path'],i['sha'])for i in data if'blob'==i['type']and'.github'not in i['path']):
+tree=[(i['path'],i['sha'])for i in data if'blob'==i['type']and'.github'not in i['path']]
+for path,sha in tree:
  if(update:=version.get(path,''))!=sha:
   (file:=folder/path).parent.mkdir(511,1,1)
   urlretrieve(url+path,file)
   print(('update ','download ')[update=='']+path)
   version[path]=sha;version();run and(run:=file.name!='run.py')
+tree=[i[0]for i in tree]
+for i in[*version]:
+ if i not in tree:
+  file=Path(i);file.exists()and file.unlink()
+  version.pop(i);version()
 exit(run)

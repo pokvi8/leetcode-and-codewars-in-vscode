@@ -1,5 +1,6 @@
 .vscode/
 typings/
+tests/
 venv/
 src/
 readme.md

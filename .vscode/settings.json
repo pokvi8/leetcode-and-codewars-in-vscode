@@ -3,13 +3,14 @@
 "code-runner.clearPreviousOutput":true,
 "code-runner.ignoreSelection":true,
 "code-runner.executorMap":{
-"python":"python $workspaceRoot/src/solution.py $fullFileName"
+"python":"python $workspaceRoot/src/solutions.py $fullFileName"
 },
 "files.exclude":{
 ".vscode/":true,
-"src/":true,
 "typings/":true,
+"tests/":true,
 "venv/":true,
+"src/":true,
 ".gitignore":true,
 }
 }

@@ -1,0 +1,1 @@
+__getattr__=lambda _:(lambda*_:{'pokvi':_})
