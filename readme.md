@@ -74,7 +74,7 @@ To ensure your solutions work correctly in the automated environment, please fol
 
 ## Note
 
-`start.py` will install the Chromium driver for Playwright and the VS Code extension **Code Runner**.
+`start.py` will install the Chromium driver for Playwright and the VS Code extension **Code Runner** and **REST Control**.
 
 ## Launch
 
