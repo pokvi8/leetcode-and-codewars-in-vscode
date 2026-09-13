@@ -8,10 +8,10 @@
 "restRemoteControl.enable": true,
 "files.exclude":{
 ".vscode/":true,
-// "typings/":true,
-// "tests/":true,
+"typings/":true,
+"tests/":true,
 "venv/":true,
-// "src/":true,
+"src/":true,
 ".gitignore":true,
 }
 }
