@@ -19,5 +19,5 @@ tree=[i[0]for i in tree]
 for i in[*version]:
  if i not in tree:
   file=Path(i);file.exists()and file.unlink()
-  version.pop(i);version()
+  version.pop(i);version();print('deleted ',file.relative_to(folder))
 exit(run)

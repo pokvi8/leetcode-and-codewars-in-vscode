@@ -11,9 +11,8 @@ with sync_playwright()as p:
   file or(update:=run(('python',folder/'src/update.py')).returncode,update or run((__import__('sys').executable,Path(__file__))))
   url=next(files,0)or input('Codewars kata url: ')
   if file:=type(url)!=str:
-   if(folder/f'typings/{url.name}i').exists()or'\n#/'not in'\n'+url.read_text().replace(' ','').replace('https://www.codewars.com/kata',''):continue
-   for i in open(url):
-    if'#'in i and'/'in i:url='https://www.codewars.com/kata/'+i.split('/')[-1].strip();print(url);break
+   if(folder/f'typings/{url.name}i').exists()and(folder/f'tests/{url.name}').exists()or'\n#/'not in'\n'+url.read_text().replace(' ','').replace('https://www.codewars.com/kata',''):continue
+   print(url:=next('https://www.codewars.com/kata/'+i.split('/')[-1].strip()for i in open(url)if'#'in i and'/'in i))
   url=url.removesuffix('/').removesuffix('/python').removesuffix('/train')
   page.goto(url+'/train/python',wait_until='domcontentloaded')
   page.click('a#reset_btn');page.click('li.confirm')

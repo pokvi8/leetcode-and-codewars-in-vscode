@@ -10,4 +10,4 @@ def solutions(*_):
 describe=lambda _:(lambda _:_())
 it=lambda _:(lambda _:_())
 assert_equals=lambda result,results,_=None:solutions(results,*result['pokvi'])
-expect=lambda result,_=None:solutions(*(print(result[a:=(dict==type(s:=result[0])and'pokvi'in s)*2],a,s)or result[a:=(dict==type(s:=result[0])and'pokvi'in s)*2],*result[~a]['pokvi']))
+expect=lambda result,_=None:solutions(*(result[a:=(dict==type(s:=result[0])and'pokvi'in s)*2],*result[~a]['pokvi']))
