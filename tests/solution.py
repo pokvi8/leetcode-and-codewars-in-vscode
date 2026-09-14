@@ -1,1 +1,1 @@
-__getattr__=lambda _:(lambda*_:{'pokvi':_})
+__getattr__=lambda _:lambda*_:{'pokvi':_}
