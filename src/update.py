@@ -20,5 +20,5 @@ tree=[i[0]for i in tree]
 for i in[*version]:
  if i not in tree:
   file=Path(i);file.exists()and file.unlink()
-  version.pop(i);version();print('deleted ',file.relative_to(folder))
+  version.pop(i);version();print('deleted ',file)
 if'1'==sys.argv[-1]and run:print(run,file=sys.stderr)
