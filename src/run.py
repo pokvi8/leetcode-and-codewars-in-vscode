@@ -27,7 +27,8 @@ with sync_playwright()as p:
   newFile(tests:=f'tests/{name}.py',code)
   run(('python',tests,f'{parameters}'.replace(' ','')))
   if file<1:
-   newFile(path:=f'solutions/{url.split('.')[1]}/python/{rank}/{name}.py',f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
+   path=folder/f'solutions/{url.split('.')[1]}/python/{rank}/{name}.py'
+   path.exists()or newFile(path,f'from {name} import {', '.join(parameters)} #type:ignore\n# {url}\n\nresult = ')
    run(('code',path),shell=1)
    run(('curl',f'localhost:{os.environ.get("REMOTE_CONTROL_PORT")}','-d{"command":"code-runner.run"}'),capture_output=1)
    print('✅ solution file:',path)
