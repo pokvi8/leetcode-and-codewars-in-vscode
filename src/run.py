@@ -19,8 +19,9 @@ with sync_playwright()as p:
   page.goto(url+'/train/python',wait_until='domcontentloaded')
   page.click('a#reset_btn');page.click('li.confirm')
   name=page.wait_for_function(f"n=document.querySelector('.CodeMirror')?.CodeMirror;i=n?.getValue();i&&n.setValue({solution})||i")
-  name,parameters=f'{name}'[4:].replace(' ','').split('(')[:2]
-  parameters=['results']+parameters.split(')')[0].strip(',').split(',')
+  name,parameters=f'{name}'.split('(')[:2]
+  name=name.split()[-1]
+  parameters=['results']+parameters.replace(' ','').split(')')[0].strip(',').split(',')
   page.click("a:has-text('Attempt')")
   rank=page.locator('.inner-small-hex').text_content()[0]
   code=page.wait_for_selector('iframe').content_frame().locator('.mt-1.p-1').first.text_content()
